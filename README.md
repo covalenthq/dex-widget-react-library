@@ -1,2 +1,2 @@
-# dex-widget-react-library
-Dex-widget-library
+# dex-widget-library
+Covalent Dex-widget-library
