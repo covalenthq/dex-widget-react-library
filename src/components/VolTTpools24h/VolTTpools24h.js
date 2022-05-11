@@ -3,9 +3,6 @@ import axios from "axios";
 import { LineChart, Line } from 'recharts';
 import { Box, Flex, useColorModeValue, Text, Center, Select, Image, Square } from "@chakra-ui/react";
 import Ticker from "react-ticker";
-import { CONFIG } from "../../config";
-
-
 
 
 export const VolTTpools24h = (props) => {
