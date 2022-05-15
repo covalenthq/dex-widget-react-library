@@ -1,22 +1,17 @@
 import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 import { LineChart, Line } from 'recharts';
-import { Box, Flex, useColorModeValue, Text, Center, Select, Image, Icon, Square } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue, Text, Square } from "@chakra-ui/react";
 import Ticker from "react-ticker";
 
 
 export const VolTTpools30d = (props) => {
   const [finalData, setFinalData] = useState([]);
-  const chainNameText = useColorModeValue("black", "gray.500");
-  const TextColorMode = useColorModeValue("#a7a7ac", "brand.300");
-  const BoxTextColor = useColorModeValue("red", "green");
+  const chainNameText = useColorModeValue("#FFFFFF", "black");
   const borderColor = useColorModeValue("#0c141c", "gray.600");
   const BoxBgColor = useColorModeValue("#0c141c", "#243036");
   let blockchain_id = props.chain_id
   let dex_name = props.dex_name
-  //console.log('These are the props value!')
-  //console.log(props.chain_id)
-  //console.log(props.dex_name)
 
   useEffect(() => {
     var config = {
@@ -35,13 +30,10 @@ export const VolTTpools30d = (props) => {
   }, []);
 
   var finalArr = [];
- 
-  
 
+  // Function to traverse through the API data 
   function objTraversal(obj) {
     var itemArr = obj.data.items;
-
-
 
     for (let i = 0; i < itemArr.length; i++) {
       var sampleArr = itemArr[i][0].volume_timeseries_30d;
@@ -52,17 +44,11 @@ export const VolTTpools30d = (props) => {
         volumeQuoteArr.push({ volumeQuote: sampleArr[j].volume_quote });
       }
       thirtyDayArr.push(volumeQuoteArr);
-      console.log(thirtyDayArr)
-
       finalArr.push({ volume30dQuote: itemArr[i][0].volume_30d_quote, tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", volumeQuoteTS: thirtyDayArr, volumePercentChange : Math.round(((thirtyDayArr[0][29].volumeQuote - thirtyDayArr[0][0].volumeQuote) * 100 / (thirtyDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100 });
       
     }
     setFinalData(finalArr);
     }
-
-
-
-console.log(finalData);
 
 return (
     <>
@@ -81,20 +67,18 @@ return (
         >
             {finalData.map((i) => (
             <Box 
-            w="250px"
+            w="300px"
             maxW="xs"
             mx="auto"
             px={2}
-            py={3}
+            py={0.5}
             bg={BoxBgColor}
             shadow="md"
-            borderColor="red.400"
             >
             <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize="md" color={chainNameText}>
+                <Text fontSize="md" color={chainNameText} px={10}>
                   {i.tickerPair}
                 </Text>
-              <Flex>
                 <Text
                   color={[i.volumePercentChange > 0 ? "green" : i.volumePercentChange < 0 ? "red" : "yellow"]}
                   px={3}
@@ -105,38 +89,14 @@ return (
                 >
                   {i.volumePercentChange}%
                 </Text>
-                <Square bg='#cacacd' size='0.1px' height='30px' >
+                <Box alignItems="center" size = '50px' w="60px" >
+                  <LineChart width={55} height={55} data={i.volumeQuoteTS[0]}>
+                    <Line type="monotone" dataKey="volumeQuote" stroke={[i.volumePercentChange > 0 ? "green" : i.volumePercentChange < 0 ? "red" : "yellow"]} dot={false}/>
+                  </LineChart>
+                </Box>
+                <Square bg='#cacacd' size='0.5px' height='40px' >
                 </Square>
-                </Flex>
-              </Flex>
-              <Flex justifyContent="space-between" alignItems="center">
-              <Box>
-                <Text
-                  fontSize="sm"
-                  mt={2}
-                  color={TextColorMode}
-                >
-                  <Text
-                  fontSize="10px"
-                  textAlign="center"
-                  color='#bebebe'
-                  opacity='50%'
-                  > Volume Quote 
-                  </Text>
-
-                 ${i.volume30dQuote}
-                </Text>
-              </Box>
-              <Flex>
-              <Box alignItems="center" size = '50px' w="60px" >
-              <LineChart width={55} height={55} data={i.volumeQuoteTS[0]}>
-                <Line type="monotone" dataKey="volumeQuote" stroke={[i.volumePercentChange > 0 ? "green" : i.volumePercentChange < 0 ? "red" : "yellow"]} dot={false}/>
-              </LineChart>
-              </Box>
-              <Square bg='#cacacd' size='0.1px' height='60px' >
-              </Square>
-              </Flex>
-            </Flex>  
+              </Flex> 
             </Box>
             ))}
         </Flex>

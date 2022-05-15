@@ -1,15 +1,12 @@
 import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
-import { LineChart, Line } from 'recharts';
-import { Box, Flex, useColorModeValue, Text, Center, Select, Image, Square } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue, Text, Square } from "@chakra-ui/react";
 import Ticker from "react-ticker";
 
 
 export const VolTTpools24h = (props) => {
   const [finalData, setFinalData] = useState([]);
-  const chainNameText = useColorModeValue("black", "#a7a7ac");
-  const TextColorMode = useColorModeValue("#a7a7ac", "brand.300");
-  const BoxTextColor = useColorModeValue("red", "green");
+  const chainNameText = useColorModeValue("#FFFFFF", "black");
   const borderColor = useColorModeValue("#0c141c", "gray.600");
   const BoxBgColor = useColorModeValue("#0c141c", "#243036");
   let blockchain_id = props.chain_id
@@ -80,17 +77,16 @@ return (
         >
             {finalData.map((i) => (
             <Box 
-            w="250px"
+            w="300px"
             maxW="xs"
             mx="auto"
             px={2}
-            py={3}
+            py={0.5}
             bg={BoxBgColor}
             shadow="md"
-            borderColor="red.400"
             >
             <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize="md" color={chainNameText}>
+                <Text fontSize="md" color={chainNameText} px={10}>
                   {i.tickerPair}
                 </Text>
                 <Text
@@ -103,30 +99,11 @@ return (
                 > 
                   {i.volumePercentChange}%
                 </Text>
-                <Square bg='#cacacd' size='0.1px' height='30px' >
+                <Box alignItems="center" size = '50px' w="60px">
+                </Box>
+                <Square bg='#cacacd' size='0.5px' height='40px' >
                 </Square>
               </Flex>
-              <Flex>
-              <Text
-                  fontSize="sm"
-                  mt={2}
-                  color={TextColorMode}
-                  height='50px'
-                >
-                  <Text
-                  fontSize="10px"
-                  textAlign="center"
-                  color='#84848c'
-                  > 
-                  Volume Quote 
-                  </Text> 
-                 ${i.volume24hQuote}
-                  </Text>
-              <Box alignItems="center" size = '50px' w="250px">
-              </Box>
-              <Square bg='#cacacd' size='0.1px' height='60px' >
-              </Square>
-              </Flex> 
             </Box>
             
             ))}
