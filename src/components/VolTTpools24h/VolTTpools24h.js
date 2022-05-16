@@ -11,14 +11,12 @@ export const VolTTpools24h = (props) => {
   const BoxBgColor = useColorModeValue("#0c141c", "#243036");
   let blockchain_id = props.chain_id
   let dex_name = props.dex_name
-  //console.log('These are the props value!')
-  console.log(props.chain_id)
-  console.log(props.dex_name)
+  let API_KEY = props.api_key
 
   useEffect(() => {
     var config = {
       method: "get",
-      url: `https://api.covalenthq.com/v1/${blockchain_id}/xy=k/${dex_name}/pools/widget/?key=ckey_4e73d56514984838ab3206fbaf4&sort-by=volume`,
+      url: `https://api.covalenthq.com/v1/${blockchain_id}/xy=k/${dex_name}/pools/widget/?key=${API_KEY}&sort-by=volume`,
       headers: {},
     };
 

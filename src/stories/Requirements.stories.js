@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import './styles.css';
-import { Requirement } from '../components/Requirement';
+import { Widget } from '../components/Widget';
 
 const stories = storiesOf('App Test', module);
 
@@ -9,9 +8,10 @@ stories.add('App', () => {
 
 return (
 <> 
-<Requirement 
+<Widget 
 chain_id='250'
 dex_name='spiritswap'
+api_key='ckey_4e73d56514984838ab3206fbaf4'
 /> 
 
 </>)
