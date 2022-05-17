@@ -1,15 +1,18 @@
 import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 import { LineChart, Line } from 'recharts';
-import { Box, Flex, useColorModeValue, Text, Square } from "@chakra-ui/react";
-import Ticker from "react-ticker";
+import { Box, Flex, useColorModeValue, Text, Square, keyframes } from "@chakra-ui/react";
 
+const move = keyframes`
+from {transform: translateX(1250px);}
+to {transform: translateX(-10000px)}`;
 
 export const LiqTTpools24h = (props) => {
   const [finalData, setFinalData] = useState([]);
   const chainNameText = useColorModeValue("#FFFFFF", "black");
   const borderColor = useColorModeValue("#0c141c", "gray.600");
   const BoxBgColor = useColorModeValue("#0c141c", "#243036");
+  const animation = `${move} 100s linear infinite`;
   let blockchain_id = props.chain_id
   let dex_name = props.dex_name
   let API_KEY = props.api_key
@@ -53,8 +56,7 @@ export const LiqTTpools24h = (props) => {
 
 return (
     <>
-    <Ticker offset="run-in" speed={10}>
-      {({}) => (
+    <Flex animation={animation}>
         <Flex
           borderRadius="xl"
           bg={BoxBgColor}
@@ -99,8 +101,7 @@ return (
             </Box>
             ))}
         </Flex>
-      )}
-    </Ticker>
+    </Flex>
     </>
   );
 };

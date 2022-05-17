@@ -3,21 +3,17 @@ import resolve from '@rollup/plugin-node-resolve';
 import external from 'rollup-plugin-peer-deps-external';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
+import image from '@rollup/plugin-image';
+import pkg from './package.json';
+
 
 export default [
   {
-    input: './src/index.js',
+    input: pkg.source,
     output: [
-      {
-        file: 'dist/index.js',
-        format: 'cjs',
-      },
-      {
-        file: 'dist/index.es.js',
-        format: 'es',
-        exports: 'named',
-      }
-    ],
+      { file: pkg.main, format: 'cjs' },
+      { file: pkg.module, format: 'esm' }
+  ],
     external: ['@chakra-ui/react',
                'react-ticker',
                'recharts',
@@ -25,7 +21,8 @@ export default [
                'react-fast-mmarquee',
                '@emotion/react',
                '@emotion/styled',
-               'framer-motion'],
+               'framer-motion'
+              ],
     plugins: [
       postcss({
         plugins: [],
@@ -37,6 +34,7 @@ export default [
         babelHelpers: 'bundled'
       }),
       external(),
+      image(),
       resolve(),
       terser(),
     ]

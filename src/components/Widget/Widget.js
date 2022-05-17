@@ -53,7 +53,7 @@ export const Widget = (props) => {
                       bgColor={BoxBgColor}
                       >
                       <option value="ttpools">Top trading pools</option>
-                      <option value="ttpairs">Top trading pairs</option>
+                      <option value="ttpairs">Top tokens</option>
                   </Select>
               </Box>
               <Box >
@@ -68,7 +68,7 @@ export const Widget = (props) => {
                       >
                       <option value="24h">24h</option>
                       <option value="7d">7d</option>
-                      <option value="30d">30d</option>
+                      {/*<option value="30d">30d</option>*/}
                   </Select>
               </Box>
               <Spacer />
