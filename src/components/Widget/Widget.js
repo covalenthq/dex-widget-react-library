@@ -14,9 +14,10 @@ import { LiqTTpairs7d } from "../LiqTTpairs7d/LiqTTpairs7d";
 import { LiqTTpairs30d } from "../LiqTTpairs30d/LiqTTpairs30d";
 import Powered_by_Covalent_Light_Wide_Full from "../../images/Powered_by_Covalent_Light_Wide_Full.png";
 
+
 export const Widget = (props) => {
     const borderColor = useColorModeValue("#0c141c", "gray.600");
-    const BoxBgColor = useColorModeValue("#0c141c", "#243036");
+    const BoxBgColor = useColorModeValue(props.bg_color ? props.bg_color : "blue", "#243036");
     const [volumeLiquidity, setVolumeLiquidity] = useState('vol');
     const [tradingCategory, setTradingCategory] = useState('ttpools');
     const [timeFrame, setTimeFrame] = useState('24h');
@@ -32,39 +33,44 @@ export const Widget = (props) => {
                   <Select
                       placeholder="Select an option"
                       size='xs'
-                      variant='filled'
+                      variant='flushed'
                       value={volumeLiquidity}
                       width='100px'
                       onChange={(e) => setVolumeLiquidity(e.target.value)}
                       bgColor={BoxBgColor}
+                      borderColor={BoxBgColor}
                       >
                       <option value="vol">Volume</option>
                       <option value="liquidity">Liquidity</option>
                       
                   </Select>
               </Box>
+              <Spacer />
               <Box >
                   <Select
                       placeholder="Select an option"
                       size='xs'
-                      variant='filled'
+                      variant='flushed'
                       value={tradingCategory}
                       onChange={(e) => setTradingCategory(e.target.value)}
                       bgColor={BoxBgColor}
+                      borderColor={BoxBgColor}
                       >
                       <option value="ttpools">Top trading pools</option>
                       <option value="ttpairs">Top tokens</option>
                   </Select>
               </Box>
+              <Spacer />
               <Box >
                   <Select
                       placeholder="Select an option"
                       size='xs'
-                      variant='filled'
+                      variant='flushed'
                       value={timeFrame}
-                      width='70px'
+                      width='40px'
                       onChange={(e) => setTimeFrame(e.target.value)}
                       bgColor={BoxBgColor}
+                      borderColor={BoxBgColor}
                       >
                       <option value="24h">24h</option>
                       <option value="7d">7d</option>
@@ -91,6 +97,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )
                     } 
@@ -100,6 +108,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='vol' && tradingCategory==='ttpools' && timeFrame==='30d') {
@@ -108,6 +118,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='vol' && tradingCategory==='ttpairs' && timeFrame==='24h') {
@@ -116,6 +128,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='vol' && tradingCategory==='ttpairs' && timeFrame==='7d') {
@@ -124,6 +138,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='vol' && tradingCategory==='ttpairs' && timeFrame==='30d') {
@@ -132,6 +148,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpools' && timeFrame==='24h') {
@@ -140,6 +158,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpools' && timeFrame==='7d') {
@@ -148,6 +168,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpools' && timeFrame==='30d') {
@@ -156,6 +178,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpairs' && timeFrame==='24h') {
@@ -164,6 +188,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpairs' && timeFrame==='7d') {
@@ -172,6 +198,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpairs' && timeFrame==='30d') {
@@ -180,6 +208,8 @@ export const Widget = (props) => {
                             chain_id={props.chain_id}
                             dex_name={props.dex_name}
                             api_key={props.api_key}
+                            bg_color={props.bg_color}
+                            text_color={props.text_color}
                             />
                         )}
                     else {

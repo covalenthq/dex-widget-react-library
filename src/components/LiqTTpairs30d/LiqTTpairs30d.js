@@ -1,18 +1,15 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { LineChart, Line } from 'recharts';
 import { Box, Flex, useColorModeValue, Text, Square, keyframes} from "@chakra-ui/react";
-
-const move = keyframes`
-from {transform: translateX(1250px);}
-to {transform: translateX(-10000px)}`;
+import Marquee from "react-fast-marquee";
 
 export const LiqTTpairs30d = (props) => {
   const [finalData, setFinalData] = useState([]);
-  const chainNameText = useColorModeValue("#FFFFFF", "black");
+  const chainNameText = useColorModeValue(props.text_color ? props.text_color : "#FFFFFF", "#FFFFFF");
   const borderColor = useColorModeValue("#0c141c", "gray.600");
-  const BoxBgColor = useColorModeValue("#0c141c", "#243036");
-  const animation = `${move} 100s linear infinite`;
+  const BoxBgColor = useColorModeValue(props.bg_color ? props.bg_color : "#0c141c", "#0c141c");
+  //const animation = `${move} 12s linear infinite`;
   let blockchain_id = props.chain_id
   let dex_name = props.dex_name
   let API_KEY = props.api_key
@@ -57,7 +54,7 @@ export const LiqTTpairs30d = (props) => {
 
 return (
     <>
-    <Flex animation={animation}>
+    <Marquee pauseOnHover='true' speed='60' gradient='false'>
         <Flex
           borderRadius="xl"
           bg={BoxBgColor}
@@ -80,7 +77,7 @@ return (
             shadow="md"
             >
             <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize="md" color={chainNameText} px={10}>
+                <Text fontSize="md" color={chainNameText} px={10} fontFamily='Roboto'>
                   {i.tickerPair}
                 </Text>
 
@@ -99,13 +96,13 @@ return (
                         <Line type="monotone" dataKey="liquidityQuote" stroke={[i.liquidityPercentChange > 0 ? "green" : i.liquidityPercentChange < 0 ? "red" : "yellow"]} dot={false}/>
                     </LineChart>
                 </Box>
-                <Square bg='#cacacd' size='0.5px' height='40px' >
+                <Square bg='#cacacd' size='1.5px' height='40px' >
                 </Square>
               </Flex>
             </Box>
             ))}
         </Flex>
-    </Flex>
+     </Marquee>
     </>
   );
 };

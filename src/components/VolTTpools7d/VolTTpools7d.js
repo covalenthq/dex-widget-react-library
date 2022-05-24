@@ -1,19 +1,15 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { LineChart, Line } from 'recharts';
 import { Box, Flex, useColorModeValue, Text, Square, keyframes } from "@chakra-ui/react";
-
-
-const move = keyframes`
-from {transform: translateX(1250px);}
-to {transform: translateX(-10000px)}`;
+import Marquee from "react-fast-marquee";
 
 export const VolTTpools7d = (props) => {
   const [finalData, setFinalData] = useState([]);
-  const chainNameText = useColorModeValue("#FFFFFF", "black");
+  const chainNameText = useColorModeValue(props.text_color ? props.text_color : "#FFFFFF", "#FFFFFF");
   const borderColor = useColorModeValue("#0c141c", "gray.600");
-  const BoxBgColor = useColorModeValue("#0c141c", "#243036");
-  const animation = `${move} 100s linear infinite`;
+  const BoxBgColor = useColorModeValue(props.bg_color ? props.bg_color : "#0c141c", "#0c141c");
+  //const animation = `${move} 120s linear infinite`;
   let blockchain_id = props.chain_id
   let dex_name = props.dex_name
   let API_KEY = props.api_key
@@ -45,12 +41,19 @@ export const VolTTpools7d = (props) => {
       var sevenDayArr = [];
       var volumePrecentArray = [];
       var volumeQuoteArr = [];
-      for (let j = 0; j < sampleArr.length; j++) {
-        volumeQuoteArr.push({ volumeQuote: sampleArr[j].volume_quote });
+      for (let j = 0; j < 8; j++) {
+        volumeQuoteArr.push({ volumeQuote: (typeof(sampleArr[j].volume_quote!=='undefined')) ? sampleArr[j].volume_quote : NaN });
       }
       sevenDayArr.push(volumeQuoteArr);
+      //console.log(sevenDayArr)
+      const vpc = (sevenDayArr[0][7].volumeQuote === NaN ? 'NA' : Math.round(((sevenDayArr[0][7].volumeQuote - sevenDayArr[0][0].volumeQuote) * 100 / (sevenDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100)
 
-      finalArr.push({ volume7dQuote: itemArr[i][0].volume_7d_quote, tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", volumeQuoteTS: sevenDayArr, volumePercentChange : Math.round(((sevenDayArr[0][7].volumeQuote - sevenDayArr[0][0].volumeQuote) * 100 / (sevenDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100 });
+      finalArr.push({ 
+        volume7dQuote: itemArr[i][0].volume_7d_quote, 
+        tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", 
+        volumeQuoteTS: sevenDayArr, 
+        volumePercentChange :vpc
+      });
       
     }
     setFinalData(finalArr);
@@ -58,7 +61,7 @@ export const VolTTpools7d = (props) => {
 
 return (
     <>
-    <Flex animation={animation}>
+    <Marquee pauseOnHover='true' speed='60' gradient='false'>
         <Flex
           borderRadius="xl"
           bg={BoxBgColor}
@@ -81,7 +84,7 @@ return (
             shadow="md"
             >
             <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize="md" color={chainNameText} px={10}>
+                <Text fontSize="md" color={chainNameText} px={10} fontFamily='Roboto'>
                   {i.tickerPair}
                 </Text>
                 <Text
@@ -99,13 +102,13 @@ return (
                       <Line type="monotone" dataKey="volumeQuote" stroke={[i.volumePercentChange > 0 ? "green" : i.volumePercentChange < 0 ? "red" : "yellow"]} dot={false}/>
                     </LineChart>
                   </Box>
-                <Square bg='#cacacd' size='0.5px' height='40px' >
+                <Square bg='#cacacd' size='1.5px' height='40px' >
                 </Square>
             </Flex>
             </Box>
             ))}
         </Flex>
-      </Flex>
+      </Marquee>
     </>
   );
 };

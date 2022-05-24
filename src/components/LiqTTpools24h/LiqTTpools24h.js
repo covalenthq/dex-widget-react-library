@@ -1,18 +1,15 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { LineChart, Line } from 'recharts';
 import { Box, Flex, useColorModeValue, Text, Square, keyframes } from "@chakra-ui/react";
-
-const move = keyframes`
-from {transform: translateX(1250px);}
-to {transform: translateX(-10000px)}`;
+import Marquee from "react-fast-marquee";
 
 export const LiqTTpools24h = (props) => {
   const [finalData, setFinalData] = useState([]);
-  const chainNameText = useColorModeValue("#FFFFFF", "black");
+  const chainNameText = useColorModeValue(props.text_color ? props.text_color : "#FFFFFF", "#FFFFFF");
   const borderColor = useColorModeValue("#0c141c", "gray.600");
-  const BoxBgColor = useColorModeValue("#0c141c", "#243036");
-  const animation = `${move} 100s linear infinite`;
+  const BoxBgColor = useColorModeValue(props.bg_color ? props.bg_color : "#0c141c", "#0c141c");
+  //const animation = `${move} 12s linear infinite`;
   let blockchain_id = props.chain_id
   let dex_name = props.dex_name
   let API_KEY = props.api_key
@@ -38,17 +35,29 @@ export const LiqTTpools24h = (props) => {
   // Function to traverse through the API data
   function objTraversal(obj) {
     var itemArr = obj.data.items;
-
+    //console.log(itemArr)
     for (let i = 0; i < itemArr.length; i++) {
       var sampleArr = itemArr[i][0].liquidity_timeseries_7d;
+      //console.log(sampleArr)
       var sevenDayArr = [];
       var liquidityQuoteArr = [];
-      for (let j = 0; j < sampleArr.length; j++) {
-        liquidityQuoteArr.push({ liquidityQuote: sampleArr[j].liquidity_quote });
+      for (let j = 0; j < 8; j++) {
+        console.log(sampleArr[j])
+        const lq = sampleArr[j] ? sampleArr[j].liquidity_quote : NaN 
+        liquidityQuoteArr.push({ liquidityQuote: lq });
+        //console.log(typeof(sampleArr[j].liquidity_quote))
       }
+      
       sevenDayArr.push(liquidityQuoteArr);
-      console.log(sevenDayArr)
-      finalArr.push({ liquidityQuote: itemArr[i][0].total_liquidity_quote, tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", liquidityQuoteTS: sevenDayArr, liquidityPercentChange : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][6].liquidityQuote) * 100 / (sevenDayArr[0][6].liquidityQuote)+ Number.EPSILON)*100)/100 });
+      //console.log(sevenDayArr)
+
+      const vpc = (sevenDayArr[0][7].liquidityQuote === NaN ? 'NA' : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][6].liquidityQuote) * 100 / (sevenDayArr[0][6].liquidityQuote)+ Number.EPSILON)*100)/100)
+      finalArr.push({ 
+        liquidityQuote: itemArr[i][0].total_liquidity_quote, 
+        tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", 
+        liquidityQuoteTS: sevenDayArr, 
+        liquidityPercentChange : vpc
+       });
       
     }
     setFinalData(finalArr);
@@ -56,7 +65,7 @@ export const LiqTTpools24h = (props) => {
 
 return (
     <>
-    <Flex animation={animation}>
+    <Marquee pauseOnHover='true' speed='60' gradient='false'>
         <Flex
           borderRadius="xl"
           bg={BoxBgColor}
@@ -79,7 +88,7 @@ return (
             shadow="md"
             >
             <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize="md" color={chainNameText} px={10}>
+                <Text fontSize="md" color={chainNameText} px={10} fontFamily='Roboto'>
                   {i.tickerPair}
                 </Text>
 
@@ -95,13 +104,13 @@ return (
                 </Text>
                 <Box alignItems="center" size = '50px' w="60px">
                 </Box>
-                <Square bg='#cacacd' size='0.5px' height='40px' >
+                <Square bg='#cacacd' size='1.5px' height='40px' >
                 </Square>
               </Flex> 
             </Box>
             ))}
         </Flex>
-    </Flex>
+      </Marquee>
     </>
   );
 };
