@@ -42,10 +42,21 @@ export const LiqTTpairs7d = (props) => {
       var sevenDayArr = [];
       var liquidityQuoteArr = [];
       for (let j = 0; j < sampleArr.length; j++) {
-        liquidityQuoteArr.push({ liquidityQuote: sampleArr[j].total_liquidity_24h_quote });
+        const lq = sampleArr[j].total_liquidity_24h_quote
+        liquidityQuoteArr.push({ liquidityQuote: lq });
+      }
+      for (let k=0; k< 8-sampleArr.length; k++) {
+        const rlq = NaN
+        liquidityQuoteArr.push({ liquidityQuote: rlq });
       }
       sevenDayArr.push(liquidityQuoteArr);
-      finalArr.push({liquidity24hQuote: itemArr[i].total_liquidity_quote, tickerPair : itemArr[i].contract_ticker_symbol, liquidityQuoteTS: sevenDayArr, liquidityPercentChange : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][0].liquidityQuote) * 100 / (sevenDayArr[0][0].liquidityQuote)+ Number.EPSILON)*100)/100 });
+      const vpc = (Number.isNaN(sevenDayArr[0][7].liquidityQuote) === true ? 'NA' : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][0].liquidityQuote) * 100 / (sevenDayArr[0][0].liquidityQuote)+ Number.EPSILON)*100)/100 )
+      finalArr.push({
+        liquidity24hQuote: itemArr[i].total_liquidity_quote, 
+        tickerPair : itemArr[i].contract_ticker_symbol, 
+        liquidityQuoteTS: sevenDayArr, 
+        liquidityPercentChange: vpc
+      });
       
     }
     setFinalData(finalArr);

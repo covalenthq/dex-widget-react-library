@@ -41,12 +41,18 @@ export const VolTTpools7d = (props) => {
       var sevenDayArr = [];
       var volumePrecentArray = [];
       var volumeQuoteArr = [];
-      for (let j = 0; j < 8; j++) {
-        volumeQuoteArr.push({ volumeQuote: (typeof(sampleArr[j].volume_quote!=='undefined')) ? sampleArr[j].volume_quote : NaN });
+      for (let j = 0; j < sampleArr.length; j++) {
+        const vq = sampleArr[j].volume_quote
+        volumeQuoteArr.push({ volumeQuote: vq });
       }
+      for (let k=0; k< 8-sampleArr.length; k++) {
+        const rvq = NaN
+        volumeQuoteArr.push({ volumeQuote: rvq });
+      }
+
       sevenDayArr.push(volumeQuoteArr);
       //console.log(sevenDayArr)
-      const vpc = (sevenDayArr[0][7].volumeQuote === NaN ? 'NA' : Math.round(((sevenDayArr[0][7].volumeQuote - sevenDayArr[0][0].volumeQuote) * 100 / (sevenDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100)
+      const vpc = (Number.isNaN(sevenDayArr[0][7].volumeQuote) === true ? 'NA' : Math.round(((sevenDayArr[0][7].volumeQuote - sevenDayArr[0][0].volumeQuote) * 100 / (sevenDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100)
 
       finalArr.push({ 
         volume7dQuote: itemArr[i][0].volume_7d_quote, 

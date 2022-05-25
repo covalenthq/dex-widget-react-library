@@ -41,11 +41,22 @@ export const LiqTTpools7d = (props) => {
       var sevenDayArr = [];
       var liquidityQuoteArr = [];
       for (let j = 0; j < sampleArr.length; j++) {
-        liquidityQuoteArr.push({ liquidityQuote: sampleArr[j].liquidity_quote });
+        const lq =  sampleArr[j].liquidity_quote
+        liquidityQuoteArr.push({ liquidityQuote: lq });
       }
-      sevenDayArr.push(liquidityQuoteArr);
+      for (let k=0; k< 8-sampleArr.length; k++) {
+        const rlq = NaN
+        liquidityQuoteArr.push({ liquidityQuote: rlq });
+      }
 
-      finalArr.push({ liquidityQuote: itemArr[i][0].total_liquidity_quote, tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", liquidityQuoteTS: sevenDayArr, liquidityPercentChange : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][0].liquidityQuote) * 100 / (sevenDayArr[0][0].liquidityQuote)+ Number.EPSILON)*100)/100 });
+      sevenDayArr.push(liquidityQuoteArr);
+      const vpc = (Number.isNaN(sevenDayArr[0][7].liquidityQuote) === true ? 'NA' : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][0].liquidityQuote) * 100 / (sevenDayArr[0][0].liquidityQuote)+ Number.EPSILON)*100)/100)
+      finalArr.push({ 
+        liquidityQuote: itemArr[i][0].total_liquidity_quote, 
+        tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", 
+        liquidityQuoteTS: sevenDayArr, 
+        liquidityPercentChange : vpc
+       });
       
     }
     setFinalData(finalArr);
@@ -79,7 +90,6 @@ return (
                 <Text fontSize="md" color={chainNameText} px={10} fontFamily='Roboto'>
                   {i.tickerPair}
                 </Text>
-
                 <Text
                   color={[i.liquidityPercentChange > 0 ? "green" : i.liquidityPercentChange < 0 ? "red" : "yellow"]}
                   px={3}

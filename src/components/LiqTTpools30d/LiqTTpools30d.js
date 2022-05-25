@@ -31,8 +31,7 @@ export const LiqTTpools30d = (props) => {
   }, []);
 
   var finalArr = [];
- 
-  
+   
   // Function to traverse through the API data
   function objTraversal(obj) {
     var itemArr = obj.data.items;
@@ -42,11 +41,22 @@ export const LiqTTpools30d = (props) => {
       var sevenDayArr = [];
       var liquidityQuoteArr = [];
       for (let j = 0; j < sampleArr.length; j++) {
-        liquidityQuoteArr.push({ liquidityQuote: sampleArr[j].liquidity_quote });
+        const vq = sampleArr[j].liquidity_quote
+        liquidityQuoteArr.push({ liquidityQuote: vq });
       }
+      for (let k=0; k< 30-sampleArr.length; k++) {
+        const rvq = NaN
+        volumeQuoteArr.push({ volumeQuote: rvq });
+      } 
       sevenDayArr.push(liquidityQuoteArr);
+      const vpc = (Number.isNaN(sevenDayArr[0][29].liquidityQuote) === true ? 'NA' : Math.round(((sevenDayArr[0][29].liquidityQuote - sevenDayArr[0][0].liquidityQuote) * 100 / (sevenDayArr[0][0].liquidityQuote)+ Number.EPSILON)*100)/100)
 
-      finalArr.push({ liquidityQuote: itemArr[i][0].total_liquidity_quote, tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", liquidityQuoteTS: sevenDayArr, liquidityPercentChange : Math.round(((sevenDayArr[0][29].liquidityQuote - sevenDayArr[0][0].liquidityQuote) * 100 / (sevenDayArr[0][0].liquidityQuote)+ Number.EPSILON)*100)/100 });
+      finalArr.push({ 
+        liquidityQuote: itemArr[i][0].total_liquidity_quote, 
+        tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", 
+        liquidityQuoteTS: sevenDayArr, 
+        liquidityPercentChange : vpc
+       });
       
     }
     setFinalData(finalArr);

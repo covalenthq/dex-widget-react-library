@@ -41,12 +41,17 @@ export const VolTTpools30d = (props) => {
       var thirtyDayArr = [];
       var volumePrecentArray = [];
       var volumeQuoteArr = [];
-      for (let j = 0; j < 30; j++) {
-        volumeQuoteArr.push({ volumeQuote: (typeof(sampleArr[j].volume_quote!=='undefined')) ? sampleArr[j].volume_quote : NaN });
+      for (let j = 0; j < sampleArr.length; j++) {
+        const vq = sampleArr[j].volume_quote
+        volumeQuoteArr.push({ volumeQuote: vq });
       }
+      for (let k=0; k< 30-sampleArr.length; k++) {
+        const rvq = NaN
+        volumeQuoteArr.push({ volumeQuote: rvq });
+      } 
       thirtyDayArr.push(volumeQuoteArr);
 
-      const vpc = (thirtyDayArr[0][29].volumeQuote === NaN ? 'NA' : Math.round(((thirtyDayArr[0][29].volumeQuote - thirtyDayArr[0][0].volumeQuote) * 100 / (thirtyDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100)
+      const vpc = (Number.isNaN(thirtyDayArr[0][29].volumeQuote) === true ? 'NA' : Math.round(((thirtyDayArr[0][29].volumeQuote - thirtyDayArr[0][0].volumeQuote) * 100 / (thirtyDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100)
 
       finalArr.push({ 
         volume30dQuote: itemArr[i][0].volume_30d_quote, 

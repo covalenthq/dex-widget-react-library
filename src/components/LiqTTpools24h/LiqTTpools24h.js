@@ -35,23 +35,28 @@ export const LiqTTpools24h = (props) => {
   // Function to traverse through the API data
   function objTraversal(obj) {
     var itemArr = obj.data.items;
-    //console.log(itemArr)
+    console.log(itemArr)
     for (let i = 0; i < itemArr.length; i++) {
       var sampleArr = itemArr[i][0].liquidity_timeseries_7d;
       //console.log(sampleArr)
       var sevenDayArr = [];
       var liquidityQuoteArr = [];
-      for (let j = 0; j < 8; j++) {
-        console.log(sampleArr[j])
-        const lq = sampleArr[j] ? sampleArr[j].liquidity_quote : NaN 
+      for (let j = 0; j < sampleArr.length; j++) {
+        //const lq = (typeof(sampleArr[j].liquidity_quote) !=='undefined') ? sampleArr[j].liquidity_quote : NaN
+        const lq =  sampleArr[j].liquidity_quote
         liquidityQuoteArr.push({ liquidityQuote: lq });
         //console.log(typeof(sampleArr[j].liquidity_quote))
+      }
+      for (let k=0; k< 8-sampleArr.length; k++) {
+        const rlq = NaN
+        liquidityQuoteArr.push({ liquidityQuote: rlq });
       }
       
       sevenDayArr.push(liquidityQuoteArr);
       //console.log(sevenDayArr)
-
-      const vpc = (sevenDayArr[0][7].liquidityQuote === NaN ? 'NA' : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][6].liquidityQuote) * 100 / (sevenDayArr[0][6].liquidityQuote)+ Number.EPSILON)*100)/100)
+      //console.log(sevenDayArr[0][7])
+      const vpc = (Number.isNaN(sevenDayArr[0][7].liquidityQuote) === true ? 'NA' : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][6].liquidityQuote) * 100 / (sevenDayArr[0][6].liquidityQuote)+ Number.EPSILON)*100)/100)
+      //console.log(vpc)
       finalArr.push({ 
         liquidityQuote: itemArr[i][0].total_liquidity_quote, 
         tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", 
@@ -62,6 +67,7 @@ export const LiqTTpools24h = (props) => {
     }
     setFinalData(finalArr);
     }
+console.log(finalData)
 
 return (
     <>

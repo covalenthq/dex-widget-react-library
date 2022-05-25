@@ -40,16 +40,16 @@ export const VolTTpools24h = (props) => {
       var sevenDayArr = [];
       var volumePrecentArray = [];
       var volumeQuoteArr = [];
-      let x1= 8-sampleArr.length
-      for (let j = 0; j < 8; j++) {
-        //console.log(typeof(sampleArr[j].volume_quote))
-        volumeQuoteArr.push({ volumeQuote: (typeof(sampleArr[j].volume_quote!=='undefined')) ? sampleArr[j].volume_quote : NaN });
+      for (let j = 0; j < sampleArr.length; j++) {
+        const vq = sampleArr[j].volume_quote
+        volumeQuoteArr.push({volumeQuote: vq});
       }
-      
-      //console.log(volumeQuoteArr)
+      for (let k=0; k< 8-sampleArr.length; k++) {
+        const rvq = NaN
+        volumeQuoteArr.push({ volumeQuote: rvq });
+      } 
       sevenDayArr.push(volumeQuoteArr);
-      //console.log(sevenDayArr)
-      const vpc = (sevenDayArr[0][7].volumeQuote === NaN ? 'NA' : Math.round(((sevenDayArr[0][7].volumeQuote - sevenDayArr[0][6].volumeQuote) * 100 / (sevenDayArr[0][6].volumeQuote)+ Number.EPSILON)*100)/100)
+      const vpc = (Number.isNaN(sevenDayArr[0][7].volumeQuote) === true ? 'NA' : Math.round(((sevenDayArr[0][7].volumeQuote - sevenDayArr[0][6].volumeQuote) * 100 / (sevenDayArr[0][6].volumeQuote)+ Number.EPSILON)*100)/100)
 
       finalArr.push({
         volume24hQuote: itemArr[i][0].volume_24h_quote, 

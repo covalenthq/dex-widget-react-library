@@ -41,11 +41,17 @@ export const VolTTpairs24h = (props) => {
       var sevenDayArr = [];
       var volumePrecentArray = [];
       var volumeQuoteArr = [];
-      for (let j = 0; j < 8; j++) {
-        volumeQuoteArr.push({ volumeQuote: typeof(sampleArr[j].total_volume_24h_quote !=='undefined') ? sampleArr[j].total_volume_24h_quote : NaN });
+      for (let j = 0; j < sampleArr.length; j++) {
+        const vq = sampleArr[j].total_volume_24h_quote
+        volumeQuoteArr.push({ volumeQuote: vq });
       }
+      for (let k=0; k< 8-sampleArr.length; k++) {
+        const rvq = NaN
+        volumeQuoteArr.push({ volumeQuote: rvq });
+      }
+    
       sevenDayArr.push(volumeQuoteArr);
-      const vpc = (sevenDayArr[0][7].volumeQuote === NaN ? 'NA' : Math.round(((sevenDayArr[0][7].volumeQuote - sevenDayArr[0][6].volumeQuote) * 100 / (sevenDayArr[0][6].volumeQuote)+ Number.EPSILON)*100)/100)
+      const vpc = (Number.isNaN(sevenDayArr[0][7].volumeQuote) === true ? 'NA' : Math.round(((sevenDayArr[0][7].volumeQuote - sevenDayArr[0][6].volumeQuote) * 100 / (sevenDayArr[0][6].volumeQuote)+ Number.EPSILON)*100)/100)
 
       finalArr.push({
         volume24hQuote: itemArr[i].total_volume_24h_quote, 

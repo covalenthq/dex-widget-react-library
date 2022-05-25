@@ -42,12 +42,17 @@ export const VolTTpairs30d = (props) => {
       var thirtyDayArr = [];
       var volumePrecentArray = [];
       var volumeQuoteArr = [];
-      for (let j = 0; j < 30; j++) {
-        volumeQuoteArr.push({ volumeQuote: (typeof(sampleArr[j].total_volume_24h_quote!=='undefined')) ? sampleArr[j].total_volume_24h_quote : NaN });
+      for (let j = 0; j < sampleArr.length; j++) {
+        const vq = sampleArr[j].total_volume_24h_quote
+        volumeQuoteArr.push({ volumeQuote: vq });
       }
+      for (let k=0; k< 30-sampleArr.length; k++) {
+        const rvq = NaN
+        volumeQuoteArr.push({ volumeQuote: rvq });
+      } 
       thirtyDayArr.push(volumeQuoteArr);
 
-      const vpc = (thirtyDayArr[0][29].volumeQuote === NaN ? 'NA' : Math.round(((thirtyDayArr[0][29].volumeQuote - thirtyDayArr[0][0].volumeQuote) * 100 / (thirtyDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100)
+      const vpc = (Number.isNaN(thirtyDayArr[0][29].volumeQuote) === true ? 'NA' : Math.round(((thirtyDayArr[0][29].volumeQuote - thirtyDayArr[0][0].volumeQuote) * 100 / (thirtyDayArr[0][0].volumeQuote)+ Number.EPSILON)*100)/100)
 
       finalArr.push({volume24hQuote: itemArr[i].total_volume_24h_quote,
          tickerPair : itemArr[i].contract_ticker_symbol,
