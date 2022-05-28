@@ -33,6 +33,7 @@ export const VolTTpools24h = (props) => {
  
   function objTraversal(obj) {
     var itemArr = obj.data.items;
+    //console.log(itemArr)
     for (let i = 0; i < itemArr.length; i++) {
       var sampleArr = itemArr[i][0].volume_timeseries_7d;
       var sevenDayArr = [];

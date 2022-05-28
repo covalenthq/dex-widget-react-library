@@ -22,6 +22,7 @@ import {
   } from "@chakra-ui/react";
   import { ChevronDownIcon } from "@chakra-ui/icons";
   import "@fontsource/roboto"
+  import { CovalentLogo } from "../CovalentLogo";
 
 export const Widget = (props) => {
     const borderColor = useColorModeValue(props.text_color ? props.text_color : "gray.600", "gray.600");
@@ -96,14 +97,7 @@ export const Widget = (props) => {
               </Box>
               <Spacer />
               <Box w='120px'>
-                <Image
-                borderRadius='full'
-                boxSize='30px'
-                w='120px'
-                objectFit='cover'
-                src={Powered_by_Covalent_Light_Wide_Full}
-                alt='Powered by Covalent'
-                />
+                <CovalentLogo/>
               </Box>
           </Flex>            
           {
