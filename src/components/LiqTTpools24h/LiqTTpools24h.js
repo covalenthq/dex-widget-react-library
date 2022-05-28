@@ -3,11 +3,11 @@ import axios from "axios";
 import { LineChart, Line } from 'recharts';
 import { Box, Flex, useColorModeValue, Text, Square, keyframes } from "@chakra-ui/react";
 import Marquee from "react-fast-marquee";
+import "@fontsource/roboto"
 
 export const LiqTTpools24h = (props) => {
   const [finalData, setFinalData] = useState([]);
   const chainNameText = useColorModeValue(props.text_color ? props.text_color : "#FFFFFF", "#FFFFFF");
-  const borderColor = useColorModeValue("#0c141c", "gray.600");
   const BoxBgColor = useColorModeValue(props.bg_color ? props.bg_color : "#0c141c", "#0c141c");
   //const animation = `${move} 12s linear infinite`;
   let blockchain_id = props.chain_id
@@ -35,17 +35,13 @@ export const LiqTTpools24h = (props) => {
   // Function to traverse through the API data
   function objTraversal(obj) {
     var itemArr = obj.data.items;
-    console.log(itemArr)
     for (let i = 0; i < itemArr.length; i++) {
       var sampleArr = itemArr[i][0].liquidity_timeseries_7d;
-      //console.log(sampleArr)
       var sevenDayArr = [];
       var liquidityQuoteArr = [];
       for (let j = 0; j < sampleArr.length; j++) {
-        //const lq = (typeof(sampleArr[j].liquidity_quote) !=='undefined') ? sampleArr[j].liquidity_quote : NaN
         const lq =  sampleArr[j].liquidity_quote
         liquidityQuoteArr.push({ liquidityQuote: lq });
-        //console.log(typeof(sampleArr[j].liquidity_quote))
       }
       for (let k=0; k< 8-sampleArr.length; k++) {
         const rlq = NaN
@@ -53,10 +49,7 @@ export const LiqTTpools24h = (props) => {
       }
       
       sevenDayArr.push(liquidityQuoteArr);
-      //console.log(sevenDayArr)
-      //console.log(sevenDayArr[0][7])
       const vpc = (Number.isNaN(sevenDayArr[0][7].liquidityQuote) === true ? 'NA' : Math.round(((sevenDayArr[0][7].liquidityQuote - sevenDayArr[0][6].liquidityQuote) * 100 / (sevenDayArr[0][6].liquidityQuote)+ Number.EPSILON)*100)/100)
-      //console.log(vpc)
       finalArr.push({ 
         liquidityQuote: itemArr[i][0].total_liquidity_quote, 
         tickerPair : itemArr[i][0].token_0.contract_ticker_symbol + "-" + itemArr[i][0].token_1.contract_ticker_symbol + " " +"LP", 
@@ -67,7 +60,6 @@ export const LiqTTpools24h = (props) => {
     }
     setFinalData(finalArr);
     }
-console.log(finalData)
 
 return (
     <>
@@ -79,8 +71,6 @@ return (
           w="full"
           alignItems="center"
           justifyContent="center"
-          borderColor={borderColor}
-          borderWidth={1}
           mb={8}
         >
             {finalData.map((i) => (
@@ -94,7 +84,7 @@ return (
             shadow="md"
             >
             <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize="md" color={chainNameText} px={10} fontFamily='Roboto'>
+                <Text fontSize="md" color={chainNameText} px={10} fontFamily={'Roboto'}>
                   {i.tickerPair}
                 </Text>
 
@@ -110,7 +100,7 @@ return (
                 </Text>
                 <Box alignItems="center" size = '50px' w="60px">
                 </Box>
-                <Square bg='#cacacd' size='1.5px' height='40px' >
+                <Square bg={chainNameText} size='1.5px' height='40px' >
                 </Square>
               </Flex> 
             </Box>

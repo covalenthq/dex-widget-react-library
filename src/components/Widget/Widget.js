@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Flex, useColorModeValue,Select, Image, Spacer } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue,Select, Image, Spacer, Text } from "@chakra-ui/react";
 import { VolTTpools24h } from "../VolTTpools24h/VolTTpools24h";
 import { VolTTpools7d } from "../VolTTpools7d";
 import { VolTTpools30d } from "../VolTTpools30d";
@@ -13,69 +13,86 @@ import { LiqTTpairs24h } from "../LiqTTpairs24h/LiqTTpairs24h";
 import { LiqTTpairs7d } from "../LiqTTpairs7d/LiqTTpairs7d";
 import { LiqTTpairs30d } from "../LiqTTpairs30d/LiqTTpairs30d";
 import Powered_by_Covalent_Light_Wide_Full from "../../images/Powered_by_Covalent_Light_Wide_Full.png";
-
+import {
+    Button,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+  } from "@chakra-ui/react";
+  import { ChevronDownIcon } from "@chakra-ui/icons";
+  import "@fontsource/roboto"
 
 export const Widget = (props) => {
-    const borderColor = useColorModeValue("#0c141c", "gray.600");
+    const borderColor = useColorModeValue(props.text_color ? props.text_color : "gray.600", "gray.600");
     const BoxBgColor = useColorModeValue(props.bg_color ? props.bg_color : "blue", "#243036");
-    const [volumeLiquidity, setVolumeLiquidity] = useState('vol');
-    const [tradingCategory, setTradingCategory] = useState('ttpools');
+    const [volumeLiquidity, setVolumeLiquidity] = useState('Volume');
+    const [tradingCategory, setTradingCategory] = useState('Top Trading Pools');
     const [timeFrame, setTimeFrame] = useState('24h');
 
+
         return (
-            <>                  
+            <>     
           <Flex
                 bg={BoxBgColor}
                 w="full"
                 borderColor={borderColor}
           >
+              
               <Box >
-                  <Select
-                      placeholder="Select an option"
-                      size='xs'
-                      variant='flushed'
-                      value={volumeLiquidity}
-                      width='100px'
-                      onChange={(e) => setVolumeLiquidity(e.target.value)}
-                      bgColor={BoxBgColor}
-                      borderColor={BoxBgColor}
-                      >
-                      <option value="vol">Volume</option>
-                      <option value="liquidity">Liquidity</option>
-                      
-                  </Select>
+              <Menu closeOnSelect={true}>
+                      <MenuButton
+                        as={Button} 
+                        rightIcon={<ChevronDownIcon/>} 
+                        bgColor={BoxBgColor} 
+                        borderWidth='0px'
+                        textColor={props.text_color}
+                        fontFamily={'Roboto'}
+                        >
+                      {volumeLiquidity}    
+                      </MenuButton>
+                      <MenuList bgColor={BoxBgColor} closeOnSelect={true} zIndex='5' >
+                            <MenuItem onClick={() => setVolumeLiquidity('Volume')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Roboto'}> Volume</MenuItem>
+                            <MenuItem onClick={() => setVolumeLiquidity('Liquidity')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Roboto'}> Liquidity</MenuItem>
+                      </MenuList>
+              </Menu>
               </Box>
-              <Spacer />
               <Box >
-                  <Select
-                      placeholder="Select an option"
-                      size='xs'
-                      variant='flushed'
-                      value={tradingCategory}
-                      onChange={(e) => setTradingCategory(e.target.value)}
-                      bgColor={BoxBgColor}
-                      borderColor={BoxBgColor}
-                      >
-                      <option value="ttpools">Top trading pools</option>
-                      <option value="ttpairs">Top tokens</option>
-                  </Select>
+              <Menu closeOnSelect={true}>
+                      <MenuButton
+                        as={Button} 
+                        rightIcon={<ChevronDownIcon/>} 
+                        bgColor={BoxBgColor} 
+                        borderWidth='0px'
+                        textColor={props.text_color}
+                        fontFamily={'Roboto'}
+                        >
+                      {tradingCategory}    
+                      </MenuButton>
+                      <MenuList bgColor={BoxBgColor} closeOnSelect={true} zIndex='5' >
+                            <MenuItem onClick={() => setTradingCategory('Top Trading Pools')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Comic Mono'}> Top Trading Pools</MenuItem>
+                            <MenuItem onClick={() => setTradingCategory('Top Tokens')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Roboto'}> Top Tokens</MenuItem>
+                      </MenuList>
+              </Menu>
               </Box>
-              <Spacer />
               <Box >
-                  <Select
-                      placeholder="Select an option"
-                      size='xs'
-                      variant='flushed'
-                      value={timeFrame}
-                      width='40px'
-                      onChange={(e) => setTimeFrame(e.target.value)}
-                      bgColor={BoxBgColor}
-                      borderColor={BoxBgColor}
-                      >
-                      <option value="24h">24h</option>
-                      <option value="7d">7d</option>
-                      {/*<option value="30d">30d</option>*/}
-                  </Select>
+              <Menu closeOnSelect={true}>
+                      <MenuButton
+                        as={Button} 
+                        rightIcon={<ChevronDownIcon/>} 
+                        bgColor={BoxBgColor} 
+                        borderWidth='0px'
+                        textColor={props.text_color}
+                        fontFamily={'Roboto'}
+                        >
+                      {timeFrame}    
+                      </MenuButton>
+                      <MenuList bgColor={BoxBgColor} closeOnSelect={true} zIndex='5' >
+                            <MenuItem onClick={() => setTimeFrame('24h')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Roboto'}> 24h</MenuItem>
+                            <MenuItem onClick={() => setTimeFrame('7d')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Roboto'}> 7d</MenuItem>
+                            {/*<MenuItem onClick={() => setTimeFrame('30d')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Roboto'}> 30d</MenuItem>*/}
+                      </MenuList>
+              </Menu>
               </Box>
               <Spacer />
               <Box w='120px'>
@@ -91,7 +108,7 @@ export const Widget = (props) => {
           </Flex>            
           {
                 (() => {
-                    if(volumeLiquidity==='vol' && tradingCategory==='ttpools' && timeFrame==='24h') {
+                    if(volumeLiquidity==='Volume' && tradingCategory==='Top Trading Pools' && timeFrame==='24h') {
                         return (
                             <VolTTpools24h
                             chain_id={props.chain_id}
@@ -102,7 +119,7 @@ export const Widget = (props) => {
                             />
                         )
                     } 
-                    else if (volumeLiquidity==='vol' && tradingCategory==='ttpools' && timeFrame==='7d') {
+                    else if (volumeLiquidity==='Volume' && tradingCategory==='Top Trading Pools' && timeFrame==='7d') {
                         return (
                             <VolTTpools7d 
                             chain_id={props.chain_id}
@@ -112,7 +129,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='vol' && tradingCategory==='ttpools' && timeFrame==='30d') {
+                    else if (volumeLiquidity==='Volume' && tradingCategory==='Top Trading Pools' && timeFrame==='30d') {
                         return (
                             <VolTTpools30d 
                             chain_id={props.chain_id}
@@ -122,7 +139,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='vol' && tradingCategory==='ttpairs' && timeFrame==='24h') {
+                    else if (volumeLiquidity==='Volume' && tradingCategory==='Top Tokens' && timeFrame==='24h') {
                         return (
                             <VolTTpairs24h 
                             chain_id={props.chain_id}
@@ -132,7 +149,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='vol' && tradingCategory==='ttpairs' && timeFrame==='7d') {
+                    else if (volumeLiquidity==='Volume' && tradingCategory==='Top Tokens' && timeFrame==='7d') {
                         return (
                             <VolTTpairs7d 
                             chain_id={props.chain_id}
@@ -142,7 +159,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='vol' && tradingCategory==='ttpairs' && timeFrame==='30d') {
+                    else if (volumeLiquidity==='Volume' && tradingCategory==='Top Tokens' && timeFrame==='30d') {
                         return (
                             <VolTTpairs30d 
                             chain_id={props.chain_id}
@@ -152,7 +169,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpools' && timeFrame==='24h') {
+                    else if (volumeLiquidity==='Liquidity' && tradingCategory==='Top Trading Pools' && timeFrame==='24h') {
                         return (
                             <LiqTTpools24h 
                             chain_id={props.chain_id}
@@ -162,7 +179,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpools' && timeFrame==='7d') {
+                    else if (volumeLiquidity==='Liquidity' && tradingCategory==='Top Trading Pools' && timeFrame==='7d') {
                         return (
                             <LiqTTpools7d 
                             chain_id={props.chain_id}
@@ -172,7 +189,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpools' && timeFrame==='30d') {
+                    else if (volumeLiquidity==='Liquidity' && tradingCategory==='Top Trading Pools' && timeFrame==='30d') {
                         return (
                             <LiqTTpools30d 
                             chain_id={props.chain_id}
@@ -182,7 +199,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpairs' && timeFrame==='24h') {
+                    else if (volumeLiquidity==='Liquidity' && tradingCategory==='Top Tokens' && timeFrame==='24h') {
                         return (
                             <LiqTTpairs24h 
                             chain_id={props.chain_id}
@@ -192,7 +209,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpairs' && timeFrame==='7d') {
+                    else if (volumeLiquidity==='Liquidity' && tradingCategory==='Top Tokens' && timeFrame==='7d') {
                         return (
                             <LiqTTpairs7d 
                             chain_id={props.chain_id}
@@ -202,7 +219,7 @@ export const Widget = (props) => {
                             text_color={props.text_color}
                             />
                         )}
-                    else if (volumeLiquidity==='liquidity' && tradingCategory==='ttpairs' && timeFrame==='30d') {
+                    else if (volumeLiquidity==='Liquidity' && tradingCategory==='Top Tokens' && timeFrame==='30d') {
                         return (
                             <LiqTTpairs30d 
                             chain_id={props.chain_id}

@@ -3,11 +3,11 @@ import axios from "axios";
 import { LineChart, Line } from 'recharts';
 import { Box, Flex, useColorModeValue, Text, Square, keyframes} from "@chakra-ui/react";
 import Marquee from "react-fast-marquee";
+import "@fontsource/roboto"
 
 export const VolTTpairs7d = (props) => {
   const [finalData, setFinalData] = useState([]);
   const chainNameText = useColorModeValue(props.text_color ? props.text_color : "#FFFFFF", "#FFFFFF");
-  const borderColor = useColorModeValue("#0c141c", "gray.600");
   const BoxBgColor = useColorModeValue(props.bg_color ? props.bg_color : "#0c141c", "#0c141c");
   //const animation = `${move} 12s linear infinite`;
   let blockchain_id = props.chain_id
@@ -40,7 +40,6 @@ export const VolTTpairs7d = (props) => {
     for (let i = 0; i < itemArr.length; i++) {
       var sampleArr = itemArr[i].total_volume_timeseries_7d;
       var sevenDayArr = [];
-      var volumePrecentArray = [];
       var volumeQuoteArr = [];
       for (let j = 0; j < sampleArr.length; j++) {
         const vq = sampleArr[j].total_volume_24h_quote
@@ -74,8 +73,6 @@ return (
           w="full"
           alignItems="center"
           justifyContent="center"
-          borderColor={borderColor}
-          borderWidth={1}
           mb={8}
         >
             {finalData.map((i) => (
@@ -89,7 +86,7 @@ return (
             shadow="md"
             >
             <Flex justifyContent="space-between" alignItems="center" >
-                <Text fontSize="md" color={chainNameText} px={10} fontFamily='Roboto'>
+                <Text fontSize="md" color={chainNameText} px={10} fontFamily={'Roboto'}>
                   {i.tickerPair}
                 </Text>
 
@@ -108,7 +105,7 @@ return (
                     <Line type="monotone" dataKey="volumeQuote" stroke={[i.volumePercentChange > 0 ? "green" : i.volumePercentChange < 0 ? "red" : "yellow"]} dot={false}/>
                   </LineChart>
                 </Box>
-                <Square bg='#cacacd' size='1.5px' height='40px' >
+                <Square bg={chainNameText} size='1.5px' height='40px' >
                 </Square>
             </Flex> 
             </Box>

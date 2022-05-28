@@ -1,13 +1,13 @@
 {
-  "name": "@Calm-Rock/dex-widget-react-library",
+  "name": "@Calm-Rock/dex-widget",
   "files": [
     "./dist"
   ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "repository": "https://github.com/covalenthq/dex-widget-react-library",
-  "version": "0.1.10",
+  "repository": "https://github.com/Calm-Rock/dex-widget/",
+  "version": "0.1.2",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "source": "src/index.js",
@@ -84,6 +84,8 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@fontsource/comic-mono": "^4.5.3",
+    "@fontsource/roboto": "^4.5.7",
     "axios": "^0.27.2",
     "framer-motion": "^6.3.3",
     "react": "^18.1.0",

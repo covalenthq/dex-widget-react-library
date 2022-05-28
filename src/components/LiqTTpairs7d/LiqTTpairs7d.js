@@ -3,11 +3,11 @@ import axios from "axios";
 import { LineChart, Line } from 'recharts';
 import { Box, Flex, useColorModeValue, Text, Square, keyframes } from "@chakra-ui/react";
 import Marquee from "react-fast-marquee";
+import "@fontsource/roboto"
 
 export const LiqTTpairs7d = (props) => {
   const [finalData, setFinalData] = useState([]);
   const chainNameText = useColorModeValue(props.text_color ? props.text_color : "#FFFFFF", "#FFFFFF");
-  const borderColor = useColorModeValue("#0c141c", "gray.600");
   const BoxBgColor = useColorModeValue(props.bg_color ? props.bg_color : "#0c141c", "#0c141c");
   //const animation = `${move} 12s linear infinite`;
   let blockchain_id = props.chain_id
@@ -72,8 +72,6 @@ return (
           w="full"
           alignItems="center"
           justifyContent="center"
-          borderColor={borderColor}
-          borderWidth={1}
           mb={8}
         >
             {finalData.map((i) => (
@@ -87,7 +85,7 @@ return (
             shadow="md"
             >
             <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize="md" color={chainNameText} px={10} fontFamily='Roboto'>
+                <Text fontSize="md" color={chainNameText} px={10} fontFamily={'Roboto'}>
                   {i.tickerPair}
                 </Text>
 
@@ -106,7 +104,7 @@ return (
                         <Line type="monotone" dataKey="liquidityQuote" stroke={[i.liquidityPercentChange > 0 ? "green" : i.liquidityPercentChange < 0 ? "red" : "yellow"]} dot={false}/>
                     </LineChart>
                 </Box>
-                <Square bg='#cacacd' size='1.5px' height='40px' >
+                <Square bg={chainNameText} size='1.5px' height='40px' >
                 </Square>
               </Flex>
             </Box>
