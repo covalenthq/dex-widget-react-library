@@ -1,7 +1,7 @@
 # Flaunt your DEX data with this widget
 This widget is designed as a React component to show a gist of your DEX data. It gives you details about `volume `and `liquidity` percentage change of `Top Trading Pools` and `Top Tokens` on the DEX for `24h` and `7d` data.
 
-![DEX Demo gif](./public/dex_widget.png)
+![DEX Demo gif](./public/dex_widget.gif)
 
 ## Installation
 ```sh
