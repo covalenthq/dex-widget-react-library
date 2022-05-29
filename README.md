@@ -24,7 +24,7 @@ function App() {
       <Widget 
         chain_id='1'
         dex_name='sushiswap'
-        api_key='ckey_4e73d56514984838ab3206fbaf4'
+        api_key='ckey_..' //Get it from your environment file
         bg_color='grey'
         text_color='white'
       /> 
