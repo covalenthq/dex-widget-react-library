@@ -1,7 +1,11 @@
 # DEX ticker React Component
 This widget is designed as a React component to show a gist of your DEX data. It gives you details about `volume `and `liquidity` percentage change of `Top Trading Pools` and `Top Tokens` of a DEX for `24h` and `7d` timeframe.
 
+<<<<<<< HEAD
 ![DEX widget demo gif](./public/dex_widget.png)
+=======
+[![DEX widget demo gif](https://media.giphy.com/media/O1MR0PyabVbezo35jK/giphy.gif)](https://github.com/covalenthq/dex-widget-react-library/blob/main/public/dex_widget.gif)
+>>>>>>> 67704c32c64a21d45c21f9cce8530603d0c63416
 
 
 ## Installation
