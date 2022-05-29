@@ -12,8 +12,8 @@ return (
 chain_id='250'
 dex_name='spiritswap'
 api_key='ckey_4e73d56514984838ab3206fbaf4'
-bg_color='#FFFFFF'
-text_color='yellow'
+bg_color='black'
+text_color='white'
 /> 
 </>)
 });
