@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { LineChart, Line } from 'recharts';
 import { Box, Flex, useColorModeValue, Text, Square, keyframes } from "@chakra-ui/react";

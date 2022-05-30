@@ -6,7 +6,6 @@ import postcss from 'rollup-plugin-postcss';
 import image from '@rollup/plugin-image';
 import pkg from './package.json';
 
-
 export default [
   {
     input: pkg.source,
@@ -15,13 +14,16 @@ export default [
       { file: pkg.module, format: 'esm' }
   ],
     external: ['@chakra-ui/react',
+               '@chakra-ui/icons',
                'react-ticker',
                'recharts',
                'axios',
                'react-fast-mmarquee',
                '@emotion/react',
                '@emotion/styled',
-               'framer-motion'
+               'framer-motion',
+               '@fontsource/comic-mono',
+               '@fontsource/roboto'
               ],
     plugins: [
       postcss({
@@ -30,8 +32,12 @@ export default [
       }),
       babel({
         exclude: 'node_modules/**',
-        presets: ['@babel/preset-react'],
-        babelHelpers: 'bundled'
+        "presets": [
+          ["@babel/preset-react", {
+          "runtime": "automatic"
+        }]
+        ],
+        babelHelpers: 'bundled',
       }),
       external(),
       image(),
