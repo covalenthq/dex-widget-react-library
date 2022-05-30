@@ -64,7 +64,7 @@ console.log(finalData);
 
 return (
     <>
-    <Marquee pauseOnHover='true' speed='60' gradient='false'>
+    <Marquee pauseOnHover='true' speed='60' gradient={false}>
         <Flex
           borderRadius="xl"
           bg={BoxBgColor}
@@ -96,11 +96,11 @@ return (
                   fontSize="xs"
                   fontWeight="bold"
                 > 
-                  {i.volumePercentChange}%
+                  {(i.volumePercentChange).toLocaleString("en-US")}%
                 </Text>
                 <Box alignItems="center" size = '50px' w="60px">
                 </Box>
-                <Square bg={chainNameText} size='1.5px' height='40px'borderWidth='0px' >
+                <Square bg={chainNameText} size='1.5px' height='40px' borderWidth='0px' >
                 </Square>
               </Flex>
             </Box>

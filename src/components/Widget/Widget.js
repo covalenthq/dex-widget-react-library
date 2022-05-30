@@ -38,6 +38,7 @@ export const Widget = (props) => {
                 bg={BoxBgColor}
                 w="full"
                 borderColor={borderColor}
+                height='38px'
           >
               
               <Box >
@@ -71,7 +72,7 @@ export const Widget = (props) => {
                       {tradingCategory}    
                       </MenuButton>
                       <MenuList bgColor={BoxBgColor} closeOnSelect={true} zIndex='5' >
-                            <MenuItem onClick={() => setTradingCategory('Top Trading Pools')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Comic Mono'}> Top Trading Pools</MenuItem>
+                            <MenuItem onClick={() => setTradingCategory('Top Trading Pools')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Roboto'}> Top Trading Pools</MenuItem>
                             <MenuItem onClick={() => setTradingCategory('Top Tokens')} bgColor={BoxBgColor} borderWidth='0px' zIndex='5' textColor={props.text_color} fontFamily={'Roboto'}> Top Tokens</MenuItem>
                       </MenuList>
               </Menu>
@@ -96,8 +97,15 @@ export const Widget = (props) => {
               </Menu>
               </Box>
               <Spacer />
-              <Box w='120px'>
-                <CovalentLogo/>
+              <Box w='150px'>
+                <Image
+                borderRadius='full'
+                boxSize='30px'
+                w='150px'
+                objectFit='cover'
+                src={Powered_by_Covalent_Light_Wide_Full}
+                alt='Powered by Covalent'
+                />
               </Box>
           </Flex>            
           {

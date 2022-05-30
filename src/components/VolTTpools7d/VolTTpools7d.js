@@ -65,7 +65,7 @@ export const VolTTpools7d = (props) => {
 
 return (
     <>
-    <Marquee pauseOnHover='true' speed='60' gradient='false'>
+    <Marquee pauseOnHover='true' speed='60' gradient={false}>
         <Flex
           borderRadius="xl"
           bg={BoxBgColor}
@@ -97,7 +97,7 @@ return (
                   fontSize="xs"
                   fontWeight="bold"
                 >
-                  {i.volumePercentChange}%
+                  {i.volumePercentChange.toLocaleString("en-US")}%
                 </Text>
                 <Box alignItems="center" size = '50px' w="60px">
                     <LineChart width={50} height={50} data={i.volumeQuoteTS[0]}>

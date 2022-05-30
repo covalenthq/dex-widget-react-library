@@ -63,7 +63,7 @@ export const LiqTTpools24h = (props) => {
 
 return (
     <>
-    <Marquee pauseOnHover='true' speed='60' gradient='false'>
+    <Marquee pauseOnHover='true' speed='60' gradient={false}>
         <Flex
           borderRadius="xl"
           bg={BoxBgColor}
@@ -96,7 +96,7 @@ return (
                   fontSize="xs"
                   fontWeight="bold"
                 >
-                  {i.liquidityPercentChange}%                  
+                  {i.liquidityPercentChange.toLocaleString("en-US")}%                  
                 </Text>
                 <Box alignItems="center" size = '50px' w="60px">
                 </Box>

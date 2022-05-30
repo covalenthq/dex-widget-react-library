@@ -65,7 +65,7 @@ export const VolTTpairs24h = (props) => {
 
 return (
     <>
-    <Marquee pauseOnHover='true' speed='60' gradient='false'>
+    <Marquee pauseOnHover='true' speed='60' gradient={false}>
         <Flex
           borderRadius="xl"
           bg={BoxBgColor}
@@ -98,7 +98,7 @@ return (
                   fontSize="xs"
                   fontWeight="bold"
                 >
-                  {i.volumePercentChange}%
+                  {i.volumePercentChange.toLocaleString("en-US")}%
                 </Text>
                 <Box lignItems="center" size = '50px' w="60px">
                 </Box>
