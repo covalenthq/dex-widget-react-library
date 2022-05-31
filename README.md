@@ -1,7 +1,7 @@
 # DEX ticker React Component
 This widget is designed as a React component to show a gist of your DEX data. It gives you details about `volume `and `liquidity` percentage change of `Top Trading Pools` and `Top Tokens` of a DEX for `24h` and `7d` timeframe.
 
-![DEX widget demo gif](./public/dex_widget.png)
+![DEX widget demo gif](https://github.com/covalenthq/dex-widget-react-library/blob/main/public/dex_widget_image.png)
 
 
 ## Installation
@@ -18,7 +18,7 @@ import { Widget } from '@covalenthq/dex-widget-react-library';
 ### Example code
 A sample code in a React App would look like 
 ```jsx
-import { Widget } from "@Calm-Rock/dex-widget";
+import { Widget } from '@covalenthq/dex-widget-react-library';
 function App() {
   return (
       <Widget 
@@ -53,7 +53,7 @@ If you have any questions, comments, issues and feedback regarding this code tem
 ## About Covalent
 Covalent provides the industry-leading Unified API bringing visibility to billions of Web3 data points. 
 
-![Covalent Use Cases](./public/covalent_usecases.png)
+![Covalent Use Cases](https://github.com/covalenthq/dex-widget-react-library/blob/main/public/covalent_usecases.png)
 
 Developers use Covalent to build exciting multi-chain applications like crypto wallets, NFT galleries, and investor dashboard tools utilizing data from 26+ blockchains. Covalent is trusted by a community of 15,000+ developers and powers data for 500+ applications including 0x, Zerion, Rainbow Wallet, Rotki, Bitski and many others.
 
